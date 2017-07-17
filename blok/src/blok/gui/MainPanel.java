@@ -5,6 +5,8 @@
 package blok.gui;
 
 import blok.controller.GameController;
+import blok.fabrica1.Background;
+import blok.fabrica1.Brick;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -170,14 +172,16 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         Graphics2D g2d = (Graphics2D)g;
         Dimension size = getSize();
         
-        g2d.drawImage(new ImageIcon("images/background.png").getImage(), 0, 0, null);
+        //g2d.drawImage(new ImageIcon("images/background.png").getImage(), 0, 0, null);
+        g2d.drawImage(new Background().getImageIcon(), 0, 0, null);
         g2d.drawImage(new ImageIcon("images/ground.png").getImage(), size.width/2-450, size.height/2-10+260, null);
 
         for (Rectangle rect : m_bodyRect.values()) {
             if (rect != m_player) {
                 // Block
                 try {
-                    TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File("images/brick.png")), rect);
+                    //TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File("images/brick.png")), rect);
+                    TexturePaint texturePaint = new TexturePaint(new Brick().getBufferedImage(), rect);
                     g2d.setPaint(texturePaint);
                 } catch (IOException ex) {
                     Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);

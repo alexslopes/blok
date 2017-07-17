@@ -5,10 +5,17 @@
  */
 package blok.fabrica1;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author alex
  */
-public class brick {
+public class Ground {
     
+    public Image ImageIcon(){
+        Image icon = new ImageIcon("images/ground.png").getImage();
+        return icon;
+    }
 }
