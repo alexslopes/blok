@@ -5,14 +5,13 @@
  */
 package blok.interfaces.AbstractFactory;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 /**
  *
- * @author aluno
+ * @author alex
  */
-public interface IFactory {
-    IBackground getBackground();
-    
-    IBrick getBrick();
-    
-    IGround getGround();
+public interface IBrick {
+    BufferedImage getBufferedImage()throws IOException;
 }

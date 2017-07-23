@@ -7,6 +7,7 @@ package blok.gui;
 import blok.controller.GameController;
 import blok.fabrica1.Background;
 import blok.fabrica1.Brick;
+import blok.interfaces.AbstractFactory.IFactory;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -37,6 +38,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     public enum State {INITIAL, RUNNING, YOUWON, YOULOST};
     private State m_state = State.INITIAL;
     private String m_playerImage;
+    private IFactory fabrica;
     /**
      * Creates new form MainPanel
      */

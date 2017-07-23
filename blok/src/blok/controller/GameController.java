@@ -29,7 +29,7 @@ import org.jbox2d.dynamics.contacts.Contact;
  * @author aluno
  */
 public class GameController implements IGameController, Runnable, ContactListener {
-
+    
     @Override
     public boolean initialize() {
         return true;

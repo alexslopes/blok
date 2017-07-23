@@ -5,14 +5,12 @@
  */
 package blok.interfaces.AbstractFactory;
 
+import java.awt.Image;
+
 /**
  *
- * @author aluno
+ * @author alex
  */
-public interface IFactory {
-    IBackground getBackground();
-    
-    IBrick getBrick();
-    
-    IGround getGround();
+public interface IBackground {
+    Image getImageIcon();
 }

@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package blok.interfaces.AbstractFactory;
+package blok.interfaces;
+
+import java.util.List;
 
 /**
  *
- * @author aluno
+ * @author alex
  */
-public interface IFactory {
-    IBackground getBackground();
+public interface IPluginController {
+    public abstract boolean initialize();
     
-    IBrick getBrick();
-    
-    IGround getGround();
+    List getPlugins();
 }

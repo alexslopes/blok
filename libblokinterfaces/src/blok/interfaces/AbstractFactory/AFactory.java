@@ -7,12 +7,10 @@ package blok.interfaces.AbstractFactory;
 
 /**
  *
- * @author aluno
+ * @author alex
  */
-public interface IFactory {
-    IBackground getBackground();
+public abstract class AFactory implements IFactory{
+
     
-    IBrick getBrick();
     
-    IGround getGround();
 }

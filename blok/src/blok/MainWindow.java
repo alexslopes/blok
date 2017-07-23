@@ -6,6 +6,8 @@ package blok;
 
 import blok.gui.MainPanel;
 import blok.controller.GameController;
+import blok.gui.MainFrame;
+import blok.gui.MainHome;
 import java.awt.Dimension;
 
 /**
@@ -21,20 +23,27 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         Dimension size = new Dimension(1000, 600);
 
-        MainPanel mainPanel = new MainPanel();
-        mainPanel.setPreferredSize(size);
-        mainPanel.setMinimumSize(size);
-        mainPanel.setMaximumSize(size);
-        mainPanel.setSize(size);
-        setContentPane(mainPanel);
-
-        setResizable(false);
-        pack();
-        
-        GameController simulator = new GameController(mainPanel);
-        mainPanel.setSimulator(simulator);
-        simulator.init();
+//        MainPanel mainPanel = new MainPanel();
+//        mainPanel.setPreferredSize(size);
+//        mainPanel.setMinimumSize(size);
+//        mainPanel.setMaximumSize(size);
+//        mainPanel.setSize(size);
+//        setContentPane(mainPanel);
+//        
+//        setResizable(false);
+//        pack();
+//        
+//        GameController simulator = new GameController(mainPanel);
+//        mainPanel.setSimulator(simulator);
+//        simulator.init();
         //simulator.start();
+        
+        MainHome home = new MainHome();
+        
+        setContentPane(home);
+        
+       
+        pack();
     }
 
     /**
