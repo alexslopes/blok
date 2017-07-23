@@ -15,4 +15,6 @@ public interface IPluginController {
     public abstract boolean initialize();
     
     List getPlugins();
+    
+    IPlugin getPlugin(int i);
 }

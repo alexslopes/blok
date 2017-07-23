@@ -5,6 +5,9 @@
  */
 package blok;
 
+import blok.gui.MainHome;
+import javax.swing.JFrame;
+
 /**
  *
  * @author aluno
@@ -18,8 +21,10 @@ public class Blok {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.setVisible(true);
+                /*MainWindow mainWindow = new MainWindow();
+                mainWindow.setVisible(true);*/
+                JFrame main = new MainHome();
+                main.setVisible(true);
             }
         });
         /*Core core = new Core();

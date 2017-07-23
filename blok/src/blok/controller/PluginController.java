@@ -5,8 +5,7 @@
  */
 package blok.controller;
 
-import blok.interfaces.IAbstractProduct1;
-import blok.interfaces.IAbstractProduct2;
+import blok.interfaces.AbstractFactory.IFactory;
 import blok.interfaces.IPlugin;
 import blok.interfaces.IPluginController;
 import java.io.File;
@@ -82,7 +81,8 @@ public class PluginController implements IPluginController {
         System.out.println(factoryName);
         URLClassLoader ulc = new URLClassLoader(jars);//CalssLoadet carrega classes  via URL que estão em jars   ou diretorios
         IPlugin factory = (IPlugin) Class.forName(factoryName + "." + factoryName, true, ulc).newInstance();
-        pluginFactory.add(factory);
+        if(factory instanceof IFactory)
+            pluginFactory.add(factory);
         }
         //URLClassLoader ulc = new URLClassLoader(jars);
         //System.out.println(i + 1 + " - Plugin refresh");
@@ -98,6 +98,11 @@ public class PluginController implements IPluginController {
     @Override
     public List getPlugins() {
         return this.pluginFactory;
+    }
+    
+    @Override
+    public IPlugin getPlugin(int i){
+        return this.pluginFactory.get(i);
     }
 
 }

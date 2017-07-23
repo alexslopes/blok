@@ -8,6 +8,7 @@ import blok.gui.MainPanel;
 import blok.controller.GameController;
 import blok.gui.MainFrame;
 import blok.gui.MainHome;
+import blok.interfaces.AbstractFactory.IFactory;
 import java.awt.Dimension;
 
 /**
@@ -15,35 +16,47 @@ import java.awt.Dimension;
  * @author sandroandrade
  */
 public class MainWindow extends javax.swing.JFrame {
-
+    
+    
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
+    }
+
+    /*public void mainHome() {
         initComponents();
+    
+        MainHome home = new MainHome();
+
+        setContentPane(home);
+
+        pack();
+    }*/
+
+    public void mainPanel(IFactory factory) {
+        
+        //getContentPane().removeAll();
+        initComponents();
+        
         Dimension size = new Dimension(1000, 600);
 
-//        MainPanel mainPanel = new MainPanel();
-//        mainPanel.setPreferredSize(size);
-//        mainPanel.setMinimumSize(size);
-//        mainPanel.setMaximumSize(size);
-//        mainPanel.setSize(size);
-//        setContentPane(mainPanel);
-//        
-//        setResizable(false);
-//        pack();
-//        
-//        GameController simulator = new GameController(mainPanel);
-//        mainPanel.setSimulator(simulator);
-//        simulator.init();
-        //simulator.start();
-        
-        MainHome home = new MainHome();
-        
-        setContentPane(home);
-        
-       
+        MainPanel mainPanel = new MainPanel();
+        mainPanel.setFactory(factory);
+        mainPanel.setPreferredSize(size);
+        mainPanel.setMinimumSize(size);
+        mainPanel.setMaximumSize(size);
+        mainPanel.setSize(size);
+        setContentPane(mainPanel);
+
+        setResizable(false);
         pack();
+
+        GameController simulator = new GameController(mainPanel);
+        mainPanel.setSimulator(simulator);
+        simulator.init();
+        simulator.start();
+        setVisible(true);
     }
 
     /**
