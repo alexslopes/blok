@@ -8,8 +8,9 @@ import blok.gui.MainPanel;
 import blok.controller.GameController;
 import blok.gui.MainFrame;
 import blok.gui.MainHome;
-import blok.interfaces.AbstractFactory.IFactory;
 import java.awt.Dimension;
+import blok.interfaces.IAbstractFactory;
+import blok.interfaces.IFactoryMethod;
 
 /**
  *
@@ -34,7 +35,7 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }*/
 
-    public void mainPanel(IFactory factory) {
+    public void mainPanel(IAbstractFactory abstractFactory, IFactoryMethod factoryMethod) {
         
         //getContentPane().removeAll();
         initComponents();
@@ -42,7 +43,8 @@ public class MainWindow extends javax.swing.JFrame {
         Dimension size = new Dimension(1000, 600);
 
         MainPanel mainPanel = new MainPanel();
-        mainPanel.setFactory(factory);
+        mainPanel.setAbstractFactory(abstractFactory);
+        mainPanel.setFactoryMethod(factoryMethod);
         mainPanel.setPreferredSize(size);
         mainPanel.setMinimumSize(size);
         mainPanel.setMaximumSize(size);

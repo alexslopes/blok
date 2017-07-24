@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package blok.interfaces.AbstractFactory;
+package blok.interfaces;
+
+import blok.interfaces.Factory.IBackground;
+import blok.interfaces.Factory.IBrick;
+import blok.interfaces.Factory.IGround;
 
 /**
  *
  * @author aluno
  */
-public interface IFactory {
+public interface IAbstractFactory {
     IBackground getBackground();
     
     IBrick getBrick();

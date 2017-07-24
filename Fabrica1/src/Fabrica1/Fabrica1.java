@@ -5,17 +5,18 @@
  */
 package Fabrica1;
 
-import blok.interfaces.AbstractFactory.IBackground;
-import blok.interfaces.AbstractFactory.IBrick;
-import blok.interfaces.AbstractFactory.IFactory;
-import blok.interfaces.AbstractFactory.IGround;
+import blok.interfaces.Factory.IBackground;
+import blok.interfaces.Factory.IBrick;
+import blok.interfaces.Factory.IFactory;
+import blok.interfaces.Factory.IGround;
 import blok.interfaces.IPlugin;
+import blok.interfaces.IAbstractFactory;
 
 /**
  *
  * @author alex
  */
-public class Fabrica1 implements IFactory, IPlugin{
+public class Fabrica1 implements IFactory, IAbstractFactory, IPlugin{
 
     @Override
     public IBackground getBackground() {

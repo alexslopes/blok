@@ -7,8 +7,11 @@ package blok.gui;
 
 import blok.MainWindow;
 import blok.controller.PluginController;
-import blok.interfaces.AbstractFactory.IFactory;
 import blok.interfaces.IPluginController;
+import blok.interfaces.IAbstractFactory;
+import blok.interfaces.IFactoryMethod;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,6 +19,8 @@ import blok.interfaces.IPluginController;
  */
 public class MainHome extends javax.swing.JFrame {
     IPluginController plugin;
+    List<IAbstractFactory> pluginAbstractFactory = new ArrayList<>();
+    List<IFactoryMethod> pluginFactoryMethod = new ArrayList<>();;
     /**
      * Creates new form NewJFrame
      */
@@ -28,8 +33,15 @@ public class MainHome extends javax.swing.JFrame {
 
     public void lerPlugins(){
         this.cbxAbstractFactory.removeAllItems();
-        for(Object x : this.plugin.getPlugins()){
-            this.cbxAbstractFactory.addItem(x.getClass().getName().split("\\.")[1]);
+        for(Object x : this.plugin.getPluginsFactory()){
+            if(x instanceof IAbstractFactory){
+                this.cbxAbstractFactory.addItem(x.getClass().getName().split("\\.")[1]);
+                this.pluginAbstractFactory.add((IAbstractFactory) x);
+            }
+            if(x instanceof IFactoryMethod){
+                this.cbxFactoryMethod.addItem(x.getClass().getName().split("\\.")[1]);
+                this.pluginFactoryMethod.add((IFactoryMethod) x);
+            }
         }
     }
     /**
@@ -44,6 +56,9 @@ public class MainHome extends javax.swing.JFrame {
         cbxAbstractFactory = new javax.swing.JComboBox<>();
         btnCarregar = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cbxFactoryMethod = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,32 +76,43 @@ public class MainHome extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Abstract Factory");
+
+        jLabel2.setText("Factory Method");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(cbxAbstractFactory, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnCarregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAtualizar)))
+                        .addComponent(btnAtualizar))
+                    .addComponent(cbxAbstractFactory, 0, 285, Short.MAX_VALUE)
+                    .addComponent(cbxFactoryMethod, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxAbstractFactory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbxFactoryMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCarregar)
                     .addComponent(btnAtualizar))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -95,8 +121,9 @@ public class MainHome extends javax.swing.JFrame {
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
         //setVisible(false);
         MainWindow mainWindow = new MainWindow();
-        IFactory factory = (IFactory) this.plugin.getPlugin(this.cbxAbstractFactory.getSelectedIndex());
-        mainWindow.mainPanel(factory);
+        IAbstractFactory abstractFactory = (IAbstractFactory) this.pluginAbstractFactory.get(this.cbxAbstractFactory.getSelectedIndex());
+        IFactoryMethod methodFactory = (IFactoryMethod) this.pluginFactoryMethod.get(this.cbxAbstractFactory.getSelectedIndex());
+        mainWindow.mainPanel(abstractFactory, methodFactory);
     }//GEN-LAST:event_btnCarregarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
@@ -144,5 +171,8 @@ public class MainHome extends javax.swing.JFrame {
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCarregar;
     private javax.swing.JComboBox<String> cbxAbstractFactory;
+    private javax.swing.JComboBox<String> cbxFactoryMethod;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

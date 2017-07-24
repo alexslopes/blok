@@ -5,7 +5,7 @@
  */
 package blok.controller;
 
-import blok.interfaces.AbstractFactory.IFactory;
+import blok.interfaces.Factory.IFactory;
 import blok.interfaces.IPlugin;
 import blok.interfaces.IPluginController;
 import java.io.File;
@@ -16,6 +16,8 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import blok.interfaces.IAbstractFactory;
+import blok.interfaces.IFactoryMethod;
 
 /**
  *
@@ -23,7 +25,7 @@ import java.util.Scanner;
  */
 public class PluginController implements IPluginController {
 
-    private List<IPlugin> pluginFactory;
+    private List<IPlugin> pluginsFactory;
 
     @Override
     public boolean initialize() {
@@ -36,7 +38,7 @@ public class PluginController implements IPluginController {
     }
 
     public PluginController() {
-        this.pluginFactory = new ArrayList<>();
+        this.pluginsFactory= new ArrayList<>();
     }
 
     /*public void createProducts(){
@@ -54,7 +56,7 @@ public class PluginController implements IPluginController {
         
     }*/
     private void lerPlugin() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        this.pluginFactory.removeAll(pluginFactory);
+        this.pluginsFactory.removeAll(pluginsFactory);
         
         File currentDir = new File("./plugins");//localiza diretorio
         //String[] plugins = currentDir.list();//lista de arquivos no diretório 
@@ -66,23 +68,26 @@ public class PluginController implements IPluginController {
         });
         int i, y = 0;
         URL[] jars = new URL[plugins.length];
-        String factoryName;
-
+        //System.out.println(plugins.length);
+        
         for (i = 0; i < plugins.length; i++) {
-            System.out.println(i + 1 + " - " + plugins[i].split("\\.")[1]);
+            System.out.println(i + 1 + " - " + plugins[i].split("\\.")[0]);
                 jars[y] = (new File("./plugins/" + plugins[i])).toURI().toURL();//converte locais para url
+                y++;
                 System.out.println(i);
         }
 
         
+        
         for(String x : plugins){
-        factoryName = x.split("\\.")[0];
-        //factoryName = jars[0].getFile().split("\\.")[1];
+        String factoryName = x.split("\\.")[0];
         System.out.println(factoryName);
+        //factoryName = jars[0].getFile().split("\\.")[1];
         URLClassLoader ulc = new URLClassLoader(jars);//CalssLoadet carrega classes  via URL que estão em jars   ou diretorios
         IPlugin factory = (IPlugin) Class.forName(factoryName + "." + factoryName, true, ulc).newInstance();
         if(factory instanceof IFactory)
-            pluginFactory.add(factory);
+            pluginsFactory.add(factory);
+        System.out.println(factory.toString());
         }
         //URLClassLoader ulc = new URLClassLoader(jars);
         //System.out.println(i + 1 + " - Plugin refresh");
@@ -96,13 +101,8 @@ public class PluginController implements IPluginController {
     }
 
     @Override
-    public List getPlugins() {
-        return this.pluginFactory;
+    public List getPluginsFactory() {
+        return this.pluginsFactory;
     }
-    
-    @Override
-    public IPlugin getPlugin(int i){
-        return this.pluginFactory.get(i);
-    }
-
+   
 }

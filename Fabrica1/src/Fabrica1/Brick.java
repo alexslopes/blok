@@ -5,7 +5,7 @@
  */
 package Fabrica1;
 
-import blok.interfaces.AbstractFactory.IBrick;
+import blok.interfaces.Factory.IBrick;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

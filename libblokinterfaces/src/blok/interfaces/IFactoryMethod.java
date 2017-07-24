@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package blok.interfaces.AbstractFactory;
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+package blok.interfaces;
 
 /**
  *
  * @author alex
  */
-public interface IBrick {
-    BufferedImage getBufferedImage()throws IOException;
+public interface IFactoryMethod {
+    
+    IPlayer getPlayer();
 }

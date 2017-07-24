@@ -5,7 +5,6 @@
 package blok.gui;
 
 import blok.controller.GameController;
-import blok.interfaces.AbstractFactory.IFactory;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -24,6 +23,8 @@ import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
+import blok.interfaces.IAbstractFactory;
+import blok.interfaces.IFactoryMethod;
 
 /**
  *
@@ -36,7 +37,8 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     public enum State {INITIAL, RUNNING, YOUWON, YOULOST};
     private State m_state = State.INITIAL;
     private String m_playerImage;
-    private IFactory fabrica;
+    private IAbstractFactory abstractFactory;
+    private IFactoryMethod factoryMethod;
     /**
      * Creates new form MainPanel
      */
@@ -49,8 +51,12 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         playWav("sounds/background.wav", -1);
     }
 
-    public void setFactory(IFactory fabrica){
-        this.fabrica = fabrica;
+    public void setAbstractFactory(IAbstractFactory fabrica){
+        this.abstractFactory = fabrica;
+    }
+    
+    public void setFactoryMethod(IFactoryMethod fabrica){
+        this.factoryMethod = fabrica;
     }
     
     final void playWav(final String wavFile, final int times) {
@@ -177,9 +183,9 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         Dimension size = getSize();
         
         //g2d.drawImage(new ImageIcon("images/background.png").getImage(), 0, 0, null);
-        g2d.drawImage(fabrica.getBackground().getImageIcon(), 0, 0, null);
+        g2d.drawImage(abstractFactory.getBackground().getImageIcon(), 0, 0, null);
         //g2d.drawImage(new ImageIcon("images/ground.png").getImage(), size.width/2-450, size.height/2-10+260, null);
-        g2d.drawImage(fabrica.getGround().getImage(), size.width/2-450, size.height/2-10+260, null);
+        g2d.drawImage(abstractFactory.getGround().getImage(), size.width/2-450, size.height/2-10+260, null);
 
         
         for (Rectangle rect : m_bodyRect.values()) {
@@ -188,7 +194,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
                 try {
                     //TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File("images/brick.png")), rect);
                     //TexturePaint texturePaint = new TexturePaint(new Brick().getBufferedImage(), rect);
-                    TexturePaint texturePaint = new TexturePaint(fabrica.getBrick().getBufferedImage(), rect);
+                    TexturePaint texturePaint = new TexturePaint(abstractFactory.getBrick().getBufferedImage(), rect);
                     g2d.setPaint(texturePaint);
                 } catch (IOException ex) {
                     Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
@@ -197,7 +203,8 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
             else {
                 // Player
                 try {
-                    TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File(m_playerImage)), rect);
+                    //TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File(m_playerImage)), rect);
+                    TexturePaint texturePaint = new TexturePaint(factoryMethod.getPlayer().getBufferedImage(), rect);
                     g2d.setPaint(texturePaint);
                 } catch (IOException ex) {
                     Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);

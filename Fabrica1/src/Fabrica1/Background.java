@@ -5,7 +5,7 @@
  */
 package Fabrica1;
 
-import blok.interfaces.AbstractFactory.IBackground;
+import blok.interfaces.Factory.IBackground;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 

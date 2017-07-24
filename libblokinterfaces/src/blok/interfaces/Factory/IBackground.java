@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package blok.interfaces;
+package blok.interfaces.Factory;
+
+import java.awt.Image;
 
 /**
  *
  * @author alex
  */
-public interface IAbstractProduct1 {
-    public void sayHello();
+public interface IBackground {
+    Image getImageIcon();
 }
