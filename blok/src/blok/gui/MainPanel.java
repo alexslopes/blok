@@ -47,7 +47,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         setFocusable(true);
         addMouseListener(this);
         addKeyListener(this);
-        m_playerImage = "images/player" + Math.abs((new Random()).nextInt()%9) + ".png";//imagem do jogador
+        //m_playerImage = "images/player" + Math.abs((new Random()).nextInt()%9) + ".png";//imagem do jogador
         playWav("sounds/background.wav", -1);
     }
 

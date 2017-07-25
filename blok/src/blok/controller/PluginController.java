@@ -77,15 +77,16 @@ public class PluginController implements IPluginController {
                 System.out.println(i);
         }
 
-        
-        
+        URLClassLoader ulc = new URLClassLoader(jars);//CalssLoadet carrega classes  via URL que estão em jars   ou diretorios
+        System.out.println(ulc.getURLs()[1]);
         for(String x : plugins){
         String factoryName = x.split("\\.")[0];
-        System.out.println(factoryName);
+        
         //factoryName = jars[0].getFile().split("\\.")[1];
-        URLClassLoader ulc = new URLClassLoader(jars);//CalssLoadet carrega classes  via URL que estão em jars   ou diretorios
-        IPlugin factory = (IPlugin) Class.forName(factoryName + "." + factoryName, true, ulc).newInstance();
-        if(factory instanceof IFactory)
+        
+        
+        IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
+        if(factory instanceof IPlugin)
             pluginsFactory.add(factory);
         System.out.println(factory.toString());
         }

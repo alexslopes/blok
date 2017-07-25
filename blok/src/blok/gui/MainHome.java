@@ -33,14 +33,17 @@ public class MainHome extends javax.swing.JFrame {
 
     public void lerPlugins(){
         this.cbxAbstractFactory.removeAllItems();
+        this.cbxFactoryMethod.removeAllItems();
         for(Object x : this.plugin.getPluginsFactory()){
             if(x instanceof IAbstractFactory){
                 this.cbxAbstractFactory.addItem(x.getClass().getName().split("\\.")[1]);
                 this.pluginAbstractFactory.add((IAbstractFactory) x);
+                System.out.println("Abstract" + x);
             }
             if(x instanceof IFactoryMethod){
                 this.cbxFactoryMethod.addItem(x.getClass().getName().split("\\.")[1]);
                 this.pluginFactoryMethod.add((IFactoryMethod) x);
+                System.out.println("Method :" + x);
             }
         }
     }
@@ -122,7 +125,7 @@ public class MainHome extends javax.swing.JFrame {
         //setVisible(false);
         MainWindow mainWindow = new MainWindow();
         IAbstractFactory abstractFactory = (IAbstractFactory) this.pluginAbstractFactory.get(this.cbxAbstractFactory.getSelectedIndex());
-        IFactoryMethod methodFactory = (IFactoryMethod) this.pluginFactoryMethod.get(this.cbxAbstractFactory.getSelectedIndex());
+        IFactoryMethod methodFactory = (IFactoryMethod) this.pluginFactoryMethod.get(this.cbxFactoryMethod.getSelectedIndex());
         mainWindow.mainPanel(abstractFactory, methodFactory);
     }//GEN-LAST:event_btnCarregarActionPerformed
 
