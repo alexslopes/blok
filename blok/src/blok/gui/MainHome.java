@@ -5,11 +5,12 @@
  */
 package blok.gui;
 
-import blok.MainWindow;
+import blok.controller.UIController;
 import blok.controller.PluginController;
 import blok.interfaces.IPluginController;
 import blok.interfaces.IAbstractFactory;
 import blok.interfaces.IFactoryMethod;
+import blok.interfaces.IUIController;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,9 +80,9 @@ public class MainHome extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Abstract Factory");
+        jLabel1.setText("Abstract Factory (Cenário)");
 
-        jLabel2.setText("Factory Method");
+        jLabel2.setText("Factory Method (Player)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,10 +124,10 @@ public class MainHome extends javax.swing.JFrame {
 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
         //setVisible(false);
-        MainWindow mainWindow = new MainWindow();
+        IUIController mainWindow = new UIController();
         IAbstractFactory abstractFactory = (IAbstractFactory) this.pluginAbstractFactory.get(this.cbxAbstractFactory.getSelectedIndex());
         IFactoryMethod methodFactory = (IFactoryMethod) this.pluginFactoryMethod.get(this.cbxFactoryMethod.getSelectedIndex());
-        mainWindow.mainPanel(abstractFactory, methodFactory);
+        mainWindow.createMainPanel(abstractFactory, methodFactory);
     }//GEN-LAST:event_btnCarregarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
