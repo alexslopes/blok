@@ -12,5 +12,6 @@ import javax.swing.JMenuItem;
  * @author aluno
  */
 public interface IUIController {
-    public abstract void createMainPanel(IAbstractFactory abstractFactory, IFactoryMethod factoryMethod);
+    public abstract boolean initialize();
+    public void createPanel(IAbstractFactory abstractFactory, IFactoryMethod factoryMethod);
 }

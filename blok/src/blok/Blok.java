@@ -5,6 +5,7 @@
  */
 package blok;
 
+import blok.controller.UIController;
 import blok.gui.MainHome;
 import javax.swing.JFrame;
 
@@ -23,8 +24,8 @@ public class Blok {
             public void run() {
                 /*MainWindow mainWindow = new MainWindow();
                 mainWindow.setVisible(true);*/
-                JFrame main = new MainHome();
-                main.setVisible(true);
+                UIController ui = new UIController();
+                ui.initialize();
             }
         });
         /*Core core = new Core();

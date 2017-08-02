@@ -5,6 +5,11 @@
  */
 package blok.gui;
 
+import blok.controller.GameController;
+import blok.interfaces.IAbstractFactory;
+import blok.interfaces.IFactoryMethod;
+import java.awt.Dimension;
+
 /**
  *
  * @author aluno
@@ -14,8 +19,28 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public MainFrame(IAbstractFactory abstractFactory, IFactoryMethod factoryMethod) {
         initComponents();
+        
+        Dimension size = new Dimension(1000, 600);
+
+        MainPanel mainPanel = new MainPanel();
+        mainPanel.setAbstractFactory(abstractFactory);
+        mainPanel.setFactoryMethod(factoryMethod);
+        mainPanel.setPreferredSize(size);
+        mainPanel.setMinimumSize(size);
+        mainPanel.setMaximumSize(size);
+        mainPanel.setSize(size);
+        setContentPane(mainPanel);
+
+        setResizable(false);
+        pack();
+
+        GameController simulator = new GameController(mainPanel);
+        mainPanel.setSimulator(simulator);
+        simulator.init();
+        simulator.start();
+        setVisible(true);
     }
 
     /**
@@ -28,27 +53,15 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         menuBar = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-
-        jMenu1.setText("teste");
-
-        jMenuItem1.setText("teste1");
-        jMenu1.add(jMenuItem1);
-
-        menuBar.add(jMenu1);
-
         setJMenuBar(menuBar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 }
