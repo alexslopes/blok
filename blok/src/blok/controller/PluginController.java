@@ -25,41 +25,25 @@ import blok.interfaces.IFactoryMethod;
  */
 public class PluginController implements IPluginController {
 
-    private List<IPlugin> pluginsFactory;
+    private static List<IPlugin> pluginsFactory = null;
 
-    @Override
-    public boolean initialize() {
-        try {
-            lerPlugin();
-        } catch (Exception e) {
-            System.out.println(e);
+    
+    public static boolean initialize() {
+        if(pluginsFactory == null){
+            pluginsFactory= new ArrayList<>();
+            
         }
-        return true;
     }
 
-    public PluginController() {
-        this.pluginsFactory= new ArrayList<>();
+    private PluginController() {
+        
     }
 
-    /*public void createProducts(){
-        try{
-            this.lerPlugin();
-            for(IPlugin p : pluginFactory){
-                IAbstractProduct1 p1 = p.createProduct1();
-                p1.sayHello();
-                IAbstractProduct2 p2 = p.createProduct2();
-                p2.sayHi();
-            }       
-        }catch(Exception e){
-            System.out.println(e);
-        }
+    private static void lerPlugin() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        pluginsFactory.removeAll(pluginsFactory);
         
-    }*/
-    private void lerPlugin() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        this.pluginsFactory.removeAll(pluginsFactory);
+        File currentDir = new File("./plugins");
         
-        File currentDir = new File("./plugins");//localiza diretorio
-        //String[] plugins = currentDir.list();//lista de arquivos no diretório 
         String[] plugins = currentDir.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -68,7 +52,6 @@ public class PluginController implements IPluginController {
         });
         int i, y = 0;
         URL[] jars = new URL[plugins.length];
-        //System.out.println(plugins.length);
         
         for (i = 0; i < plugins.length; i++) {
             System.out.println(i + 1 + " - " + plugins[i].split("\\.")[0]);
@@ -82,23 +65,12 @@ public class PluginController implements IPluginController {
         for(String x : plugins){
         String factoryName = x.split("\\.")[0];
         
-        //factoryName = jars[0].getFile().split("\\.")[1];
-        
         
         IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
         if(factory instanceof IPlugin)
             pluginsFactory.add(factory);
         System.out.println(factory.toString());
         }
-        //URLClassLoader ulc = new URLClassLoader(jars);
-        //System.out.println(i + 1 + " - Plugin refresh");
-        //System.out.println("Escolha sua opção ou 0 para sair: ");
-        //Scanner sc = new Scanner(System.in);
-        //op = sc.nextInt();
-        //if (op != 0 && op != i + 1) {
-        //  String factoryName = plugins[op - 1].split("\\.")[0];
-        //  IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
-        // pluginFactory.add(factory);
     }
 
     @Override

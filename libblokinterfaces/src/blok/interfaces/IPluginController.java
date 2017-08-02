@@ -12,7 +12,7 @@ import java.util.List;
  * @author alex
  */
 public interface IPluginController {
-    public abstract boolean initialize();
+    //public abstract boolean initialize();
     
     List getPluginsFactory();
     
