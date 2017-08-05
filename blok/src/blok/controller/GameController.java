@@ -35,6 +35,10 @@ public class GameController implements IGameController, Runnable, ContactListene
         return true;
     }
     
+    public GameController() {
+       
+    }
+    
     public GameController(MainPanel mainPanel) {
         m_mainPanel = mainPanel;
     }

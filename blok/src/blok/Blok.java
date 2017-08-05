@@ -22,19 +22,10 @@ public class Blok {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                /*MainWindow mainWindow = new MainWindow();
-                mainWindow.setVisible(true);*/
-                UIController ui = new UIController();
-                ui.initialize();
+                Core core = Core.getInstance();
+                core.initialize();
             }
         });
-        /*Core core = new Core();
-        core.initialize();
-        core.getUIController().createMenuItem("teste", "Open");
-        //boolean b = core.initialize();*/
-        //System.out.println(b);
-        //PluginController p = new PluginController();
-        
     }
     
 }

@@ -5,6 +5,9 @@
  */
 package blok;
 
+import blok.controller.GameController;
+import blok.controller.PluginController;
+import blok.controller.UIController;
 import blok.interfaces.ICore;
 import blok.interfaces.IGameController;
 import blok.interfaces.IPluginController;
@@ -14,13 +17,24 @@ import blok.interfaces.IUIController;
  *
  * @author aluno
  */
-/*public class Core implements ICore {
-
+public class Core implements ICore {
+    private static Core core = null;
+    
+    public static Core getInstance(){
+        if(core == null)
+            core = new Core();
+        return core;
+    }
+    
+    private Core(){
+        
+    }
+    
     @Override
     public boolean initialize() {
         uiController = new UIController();
         gameController = new GameController();
-        pluginController = new PluginController();
+        pluginController = PluginController.getInstance();
   
         return uiController.initialize() &&
                gameController.initialize() &&
@@ -46,4 +60,4 @@ import blok.interfaces.IUIController;
     private IGameController gameController;
     private IPluginController pluginController;
     
-}*/
+}

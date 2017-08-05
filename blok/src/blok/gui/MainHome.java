@@ -27,7 +27,7 @@ public class MainHome extends javax.swing.JFrame {
      */
     public MainHome() {
         initComponents();
-        plugin = new PluginController();
+        plugin = PluginController.getInstance();
         plugin.initialize();
         lerPlugins();
     }                                                                                
