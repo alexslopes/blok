@@ -31,3 +31,5 @@
 /blok/build/
 /libblokinterfaces/build/
 /libblokinterfaces/dist/
+/blok/nbproject/private/
+/libblokinterfaces/nbproject/private/

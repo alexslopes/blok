@@ -29,13 +29,20 @@ import org.jbox2d.dynamics.contacts.Contact;
  * @author aluno
  */
 public class GameController implements IGameController, Runnable, ContactListener {
+    private static GameController controller = null;
+    
+    public static IGameController  getInstance(){
+        if(controller == null)
+            controller = new GameController();
+        return controller;
+    }
     
     @Override
     public boolean initialize() {
         return true;
     }
     
-    public GameController() {
+    private GameController() {
        
     }
     

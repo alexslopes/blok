@@ -32,8 +32,8 @@ public class Core implements ICore {
     
     @Override
     public boolean initialize() {
-        uiController = new UIController();
-        gameController = new GameController();
+        uiController = UIController.getInstance();
+        gameController = GameController.getInstance();
         pluginController = PluginController.getInstance();
   
         return uiController.initialize() &&

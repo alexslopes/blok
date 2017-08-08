@@ -124,7 +124,7 @@ public class MainHome extends javax.swing.JFrame {
 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
         //setVisible(false);
-        IUIController panel = new UIController();
+        IUIController panel = UIController.getInstance();
         IAbstractFactory abstractFactory = (IAbstractFactory) this.pluginAbstractFactory.get(this.cbxAbstractFactory.getSelectedIndex());
         IFactoryMethod methodFactory = (IFactoryMethod) this.pluginFactoryMethod.get(this.cbxFactoryMethod.getSelectedIndex());
         panel.createPanel(abstractFactory, methodFactory);

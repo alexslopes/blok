@@ -18,8 +18,15 @@ import blok.interfaces.IUIController;
  * @author sandroandrade
  */
 public class UIController implements IUIController {
-
-    public UIController() {
+    private static UIController controller = null;
+    
+    public static UIController getInstance(){
+        if(controller == null)
+            controller = new UIController();
+        return new UIController();
+    }
+    
+    private UIController() {
     }
 
     @Override
