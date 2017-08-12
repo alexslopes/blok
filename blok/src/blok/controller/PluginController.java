@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Scanner;
 import blok.interfaces.IAbstractFactory;
 import blok.interfaces.IFactoryMethod;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,6 +52,12 @@ public class PluginController implements IPluginController {
             Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
             Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -58,7 +66,7 @@ public class PluginController implements IPluginController {
 
     }
 
-    private static void lerPlugin() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    private static void lerPlugin() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
         pluginsFactory.removeAll(pluginsFactory);
 
         File currentDir = new File("./plugins");
@@ -83,8 +91,12 @@ public class PluginController implements IPluginController {
         System.out.println(ulc.getURLs()[1]);
         for (String x : plugins) {
             String factoryName = x.split("\\.")[0];
-
-            IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
+                
+            IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).getDeclaredMethod("getInstance").invoke(null);
+            //Class cls = Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc);
+            //Constructor[] constructors = cls.getDeclaredConstructors();
+            //constructors[0].setAccessible(true);
+            //IPlugin factory = (IPlugin) constructors[0].newInstance( );
             if (factory instanceof IPlugin) {
                 pluginsFactory.add(factory);
             }

@@ -17,7 +17,18 @@ import blok.interfaces.IAbstractFactory;
  * @author alex
  */
 public class abstractfactory1 implements IFactory, IAbstractFactory, IPlugin{
-
+    private static abstractfactory1 factory = null;
+    
+    private abstractfactory1(){
+        
+    }
+    
+    public static abstractfactory1 getInstance(){
+        if(factory == null)
+            factory = new abstractfactory1();
+        return factory;
+    }
+    
     @Override
     public IBackground getBackground() {
         return new Background();
