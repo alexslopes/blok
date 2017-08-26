@@ -4,7 +4,7 @@
  */
 package blok.gui;
 
-import blok.controller.GameController;
+import blok.controller.GameControllerAdapter;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,7 +31,7 @@ import blok.interfaces.IFactoryMethod;
  * @author sandroandrade
  */
 public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyListener {
-    private GameController m_simulator;
+    private GameControllerAdapter m_simulator;
     private HashMap<Body, Rectangle> m_bodyRect = new HashMap<Body, Rectangle>();
     private Rectangle m_player;
     public enum State {INITIAL, RUNNING, YOUWON, YOULOST};
@@ -81,7 +81,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         }})).start();
     }
     
-    public void setSimulator(GameController simulator) {
+    public void setSimulator(GameControllerAdapter simulator) {
         m_simulator = simulator;
     }
 
@@ -197,7 +197,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
                     TexturePaint texturePaint = new TexturePaint(abstractFactory.getBrick().getBufferedImage(), rect);
                     g2d.setPaint(texturePaint);
                 } catch (IOException ex) {
-                    Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GameControllerAdapter.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else {
@@ -207,7 +207,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
                     TexturePaint texturePaint = new TexturePaint(factoryMethod.getPlayer().getBufferedImage(), rect);
                     g2d.setPaint(texturePaint);
                 } catch (IOException ex) {
-                    Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GameControllerAdapter.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             g2d.fill(rect);

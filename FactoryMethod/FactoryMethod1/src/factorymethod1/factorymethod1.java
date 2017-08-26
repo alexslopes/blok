@@ -15,7 +15,18 @@ import blok.interfaces.IPlugin;
  * @author alex
  */
 public class factorymethod1 implements IPlugin, IFactory, IFactoryMethod{
-
+    private static factorymethod1 factory = null;
+    
+    private factorymethod1(){
+        
+    }
+    
+    public static factorymethod1 getInstance(){
+        if(factory == null)
+            factory = new factorymethod1();
+        return factory;
+    }
+    
     @Override
     public IPlayer getPlayer() {
         return new Player();

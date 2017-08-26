@@ -4,11 +4,8 @@
  */
 package blok.controller;
 
-import blok.gui.MainPanel;
-import blok.controller.GameController;
 import blok.gui.MainFrame;
 import blok.gui.MainHome;
-import java.awt.Dimension;
 import blok.interfaces.IAbstractFactory;
 import blok.interfaces.IFactoryMethod;
 import blok.interfaces.IUIController;

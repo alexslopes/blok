@@ -31,10 +31,14 @@ import org.jbox2d.dynamics.contacts.Contact;
 public class GameController implements IGameController, Runnable, ContactListener {
     private static GameController controller = null;
     
-    public static IGameController  getInstance(){
+    public static GameController  getInstance(){
         if(controller == null)
             controller = new GameController();
         return controller;
+    }
+    
+    private GameController() {
+       
     }
     
     @Override
@@ -42,11 +46,7 @@ public class GameController implements IGameController, Runnable, ContactListene
         return true;
     }
     
-    private GameController() {
-       
-    }
-    
-    public GameController(MainPanel mainPanel) {
+    public void setPanel(MainPanel mainPanel) {
         m_mainPanel = mainPanel;
     }
     

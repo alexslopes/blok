@@ -5,7 +5,7 @@
  */
 package blok;
 
-import blok.controller.GameController;
+import blok.controller.GameControllerAdapter;
 import blok.controller.PluginController;
 import blok.controller.UIController;
 import blok.interfaces.ICore;
@@ -33,7 +33,7 @@ public class Core implements ICore {
     @Override
     public boolean initialize() {
         uiController = UIController.getInstance();
-        gameController = GameController.getInstance();
+        gameController = GameControllerAdapter.getInstance();
         pluginController = PluginController.getInstance();
   
         return uiController.initialize() &&

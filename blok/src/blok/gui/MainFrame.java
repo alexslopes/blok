@@ -5,7 +5,7 @@
  */
 package blok.gui;
 
-import blok.controller.GameController;
+import blok.controller.GameControllerAdapter;
 import blok.interfaces.IAbstractFactory;
 import blok.interfaces.IFactoryMethod;
 import java.awt.Dimension;
@@ -36,7 +36,8 @@ public class MainFrame extends javax.swing.JFrame {
         setResizable(false);
         pack();
 
-        GameController simulator = new GameController(mainPanel);
+        GameControllerAdapter simulator = (GameControllerAdapter) GameControllerAdapter.getInstance();
+        simulator.setPanel(mainPanel);
         mainPanel.setSimulator(simulator);
         simulator.init();
         simulator.start();
