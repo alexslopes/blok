@@ -5,6 +5,7 @@
  */
 package decoratorEspada;
 
+import blok.interfaces.IPlugin;
 import decorator.Decorator;
 import decorator.Decorator;
 import interfaces.IComponent;
@@ -13,7 +14,7 @@ import interfaces.IComponent;
  *
  * @author aluno
  */
-public class DecoratorEspada extends Decorator{
+public class DecoratorEspada extends Decorator implements IPlugin{
     
     public DecoratorEspada(IComponent component) {
         

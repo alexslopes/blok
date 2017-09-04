@@ -1,6 +1,7 @@
 package decoratorCapacete;
 
 
+import blok.interfaces.IPlugin;
 import decorator.Decorator;
 import interfaces.IComponent;
 
@@ -14,7 +15,7 @@ import interfaces.IComponent;
  *
  * @author alex
  */
-public class DecoratorCapacete extends Decorator{
+public class DecoratorCapacete extends Decorator implements IPlugin{
     
     public DecoratorCapacete(IComponent component) {
         super(component);

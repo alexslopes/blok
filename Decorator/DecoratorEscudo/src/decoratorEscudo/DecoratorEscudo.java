@@ -5,6 +5,7 @@
  */
 package decoratorEscudo;
 
+import blok.interfaces.IPlugin;
 import decorator.Decorator;
 import interfaces.IComponent;
 
@@ -12,7 +13,7 @@ import interfaces.IComponent;
  *
  * @author alex
  */
-public class DecoratorEscudo extends Decorator {
+public class DecoratorEscudo extends Decorator implements IPlugin{
 
     public DecoratorEscudo(IComponent component) {
         super(component);
