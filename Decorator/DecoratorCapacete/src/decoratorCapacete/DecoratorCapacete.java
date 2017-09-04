@@ -1,27 +1,30 @@
+package decoratorCapacete;
+
+
+import decorator.Decorator;
+import interfaces.IComponent;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package decorator;
-
-import interfaces.IComponent;
 
 /**
  *
- * @author aluno
+ * @author alex
  */
-public class Decorator implements IComponent{
-    protected IComponent component;
+public class DecoratorCapacete extends Decorator{
     
-    public Decorator(IComponent component){
-        this.component = component;
+    public DecoratorCapacete(IComponent component) {
+        super(component);
     }
+    
     
     @Override
     public void desenhar() {
         component.desenhar();
+        System.err.println("Capacete");
         return;
     }
-    
 }

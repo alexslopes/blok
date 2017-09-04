@@ -14,6 +14,6 @@ import interfaces.IComponent;
 public class Player implements IComponent{
     
     public void desenhar(){
-        System.out.println("primitivo.Player.desenhar()");
+        System.out.println("Player");
     }
 }

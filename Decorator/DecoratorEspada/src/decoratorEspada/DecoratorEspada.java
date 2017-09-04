@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package decorator;
+package decoratorEspada;
 
+import decorator.Decorator;
 import decorator.Decorator;
 import interfaces.IComponent;
 
@@ -21,6 +22,8 @@ public class DecoratorEspada extends Decorator{
 
   @Override
     public void desenhar() {
+        component.desenhar();
         System.err.println("Espada");
+        return;
     }
 }
