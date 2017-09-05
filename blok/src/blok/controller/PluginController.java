@@ -31,10 +31,12 @@ public class PluginController implements IPluginController {
 
     private static PluginController plugin = null;
     private static List<IPlugin> pluginsFactory = null;
+    private static List<IPlugin> pluginsDecorator = null;
 
     public static PluginController getInstance() {
-        if (plugin == null) 
+        if (plugin == null) {
             plugin = new PluginController();
+        }
         return plugin;
     }
 
@@ -43,7 +45,7 @@ public class PluginController implements IPluginController {
         try {
             lerPlugin();
             return true;
-            
+
         } catch (MalformedURLException ex) {
             Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -91,22 +93,35 @@ public class PluginController implements IPluginController {
         System.out.println(ulc.getURLs()[1]);
         for (String x : plugins) {
             String factoryName = x.split("\\.")[0];
-                
-            IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).getDeclaredMethod("getInstance").invoke(null);
+
+            try {
+                IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).getDeclaredMethod("getInstance").invoke(null);
+                if (factory instanceof IPlugin) {
+                    pluginsFactory.add(factory);
+                }
+
+                System.out.println(factory.toString());
+            } catch (NoSuchMethodException e) {
+                    IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
+                    pluginsDecorator.add(factory);
+                    System.out.println(factory.toString());
+            }
             //Class cls = Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc);
             //Constructor[] constructors = cls.getDeclaredConstructors();
             //constructors[0].setAccessible(true);
             //IPlugin factory = (IPlugin) constructors[0].newInstance( );
-            if (factory instanceof IPlugin) {
-                pluginsFactory.add(factory);
-            }
-            System.out.println(factory.toString());
+
         }
     }
 
     @Override
     public List getPluginsFactory() {
         return this.pluginsFactory;
+    }
+
+    @Override
+    public List getPluginsDecorator() {
+        return this.pluginsDecorator;
     }
 
 }

@@ -3,28 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package decoratorEspada;
+package decoratorescudo;
 
 import blok.interfaces.IPlugin;
-import decorator.Decorator;
 import decorator.Decorator;
 import decorator.IComponent;
 
 /**
  *
- * @author aluno
+ * @author alex
  */
-public class DecoratorEspada extends Decorator implements IPlugin{
-    
-    public DecoratorEspada(IComponent component) {
-        
+public class decoratorescudo extends Decorator implements IPlugin{
+
+    public decoratorescudo(IComponent component) {
         super(component);
     }
-
-  @Override
+    
+    @Override
     public void desenhar() {
         component.desenhar();
-        System.err.println("Espada");
+        System.err.println("Escudo");
         return;
     }
 }

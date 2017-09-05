@@ -16,4 +16,6 @@ public interface IPluginController {
     
     List getPluginsFactory();
     
+    List getPluginsDecorator();
+    
 }

@@ -5,19 +5,43 @@
  */
 package blok.gui;
 
+import blok.controller.PluginController;
+import blok.interfaces.IAbstractFactory;
+import blok.interfaces.IFactoryMethod;
+import decorator.IComponent;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author alex
  */
 public class GuiDecorator extends javax.swing.JFrame {
 
+    PluginController plugin;
+    List<IComponent> pluginDecorator = new ArrayList<>();
+
     /**
      * Creates new form GuiDecorator
      */
     public GuiDecorator() {
         initComponents();
+        plugin = PluginController.getInstance();
+        plugin.initialize();
+        lerPlugins();
     }
 
+    
+    public void lerPlugins(){
+        this.cbx1.removeAll();
+        this.cbx2.removeAll();
+        for(Object x : this.plugin.getPluginsDecorator()){
+            if(x instanceof IComponent){
+                this.cbx1.addItem(x.getClass().getName().split("\\.")[1]);
+                System.out.println("Abstract" + x);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,11 +57,7 @@ public class GuiDecorator extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnOk.setText("^");
-
-        cbx2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

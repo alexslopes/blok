@@ -3,26 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package decoratorEscudo;
+package decorator;
 
 import blok.interfaces.IPlugin;
-import decorator.Decorator;
-import interfaces.IComponent;
 
 /**
  *
- * @author alex
+ * @author aluno
  */
-public class DecoratorEscudo extends Decorator implements IPlugin{
-
-    public DecoratorEscudo(IComponent component) {
-        super(component);
+public class Decorator implements IComponent, IPlugin{
+    protected IComponent component;
+    
+    public Decorator(IComponent component){
+        this.component = component;
     }
     
     @Override
     public void desenhar() {
         component.desenhar();
-        System.err.println("Escudo");
         return;
     }
+    
 }

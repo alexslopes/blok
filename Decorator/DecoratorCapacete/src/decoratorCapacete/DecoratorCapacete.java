@@ -3,7 +3,7 @@ package decoratorCapacete;
 
 import blok.interfaces.IPlugin;
 import decorator.Decorator;
-import interfaces.IComponent;
+import decorator.IComponent;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
