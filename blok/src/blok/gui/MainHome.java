@@ -21,7 +21,7 @@ import java.util.List;
 public class MainHome extends javax.swing.JFrame {
     IPluginController plugin;
     List<IAbstractFactory> pluginAbstractFactory = new ArrayList<>();
-    List<IFactoryMethod> pluginFactoryMethod = new ArrayList<>();;
+    List<IFactoryMethod> pluginFactoryMethod = new ArrayList<>();
     /**
      * Creates new form NewJFrame
      */

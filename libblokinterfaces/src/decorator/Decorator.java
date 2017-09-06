@@ -18,6 +18,10 @@ public class Decorator implements IComponent, IPlugin{
         this.component = component;
     }
     
+    public Decorator(){
+        
+    }
+    
     @Override
     public void desenhar() {
         component.desenhar();

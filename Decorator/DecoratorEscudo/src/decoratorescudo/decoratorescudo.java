@@ -19,6 +19,10 @@ public class decoratorescudo extends Decorator implements IPlugin{
         super(component);
     }
     
+    public decoratorescudo(){
+        
+    }
+    
     @Override
     public void desenhar() {
         component.desenhar();

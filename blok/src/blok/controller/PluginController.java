@@ -42,6 +42,7 @@ public class PluginController implements IPluginController {
 
     public boolean initialize() {
         pluginsFactory = new ArrayList<>();
+        pluginsDecorator = new ArrayList<>();
         try {
             lerPlugin();
             return true;
