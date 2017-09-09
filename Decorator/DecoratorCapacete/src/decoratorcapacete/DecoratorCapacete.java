@@ -1,4 +1,4 @@
-package decoratorCapacete;
+package decoratorcapacete;
 
 
 import blok.interfaces.IPlugin;
@@ -16,16 +16,14 @@ import decorator.IComponent;
  * @author alex
  */
 public class DecoratorCapacete extends Decorator implements IPlugin{
-    
-    public DecoratorCapacete(IComponent component) {
-        super(component);
-    }
-    
-    
+
     @Override
     public void desenhar() {
         component.desenhar();
         System.err.println("Capacete");
         return;
+    }
+
+    public DecoratorCapacete() {
     }
 }

@@ -105,7 +105,6 @@ public class PluginController implements IPluginController {
             } catch (NoSuchMethodException e) {
                     IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
                     pluginsDecorator.add(factory);
-                    System.out.println(factory.toString());
             }
             //Class cls = Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc);
             //Constructor[] constructors = cls.getDeclaredConstructors();

@@ -10,8 +10,11 @@ import blok.interfaces.IAbstractFactory;
 import blok.interfaces.IFactoryMethod;
 import decorator.Decorator;
 import decorator.IComponent;
+import decorator.Player;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -56,6 +59,8 @@ public class GuiDecorator extends javax.swing.JFrame {
         btnOk = new javax.swing.JButton();
         cbx2 = new javax.swing.JComboBox<String>();
         btnCarregar = new javax.swing.JButton();
+        btnCbx2Up = new javax.swing.JToggleButton();
+        btnCbx2Down = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +78,15 @@ public class GuiDecorator extends javax.swing.JFrame {
             }
         });
 
+        btnCbx2Up.setText("▲");
+
+        btnCbx2Down.setText("▼");
+        btnCbx2Down.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCbx2DownActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,33 +94,39 @@ public class GuiDecorator extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbx2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbx1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(168, 168, 168)
+                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbx1, 0, 284, Short.MAX_VALUE)
+                            .addComponent(cbx2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(168, 168, 168)
-                                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnCarregar)))
-                        .addGap(0, 159, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(btnCbx2Up, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCbx2Down, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnCarregar)
+                                .addGap(10, 10, 10)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(cbx2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbx2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCbx2Up)
+                    .addComponent(btnCbx2Down))
+                .addGap(41, 41, 41)
                 .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(btnCarregar)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarregar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,12 +134,29 @@ public class GuiDecorator extends javax.swing.JFrame {
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         this.cbx2.addItem(this.plugin.getPluginsDecorator().get(this.cbx1.getSelectedIndex()).getClass().getName().split("\\.")[1]);
-        decorator.add((Decorator) this.plugin.getPluginsDecorator().get(this.cbx1.getSelectedIndex()));
+        try {
+            decorator.add((Decorator) this.plugin.getPluginsDecorator().get(this.cbx1.getSelectedIndex()).getClass().newInstance());
+        } catch (InstantiationException ex) {
+            Logger.getLogger(GuiDecorator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(GuiDecorator.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
+           
+        for(int i = 0; i<(decorator.size()-1); i++){
+            decorator.get(i).setDecorator(decorator.get(i+1));
+        }
+        decorator.get(decorator.size()-1).setDecorator(new Player());
+        decorator.get(0).desenhar();
         
     }//GEN-LAST:event_btnCarregarActionPerformed
+
+    private void btnCbx2DownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCbx2DownActionPerformed
+        String temp;
+        temp = (String) cbx2.getSelectedItem();
+    }//GEN-LAST:event_btnCbx2DownActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,6 +195,8 @@ public class GuiDecorator extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCarregar;
+    private javax.swing.JToggleButton btnCbx2Down;
+    private javax.swing.JToggleButton btnCbx2Up;
     private javax.swing.JButton btnOk;
     private javax.swing.JComboBox<String> cbx1;
     private javax.swing.JComboBox<String> cbx2;

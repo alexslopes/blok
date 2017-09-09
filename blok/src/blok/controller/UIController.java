@@ -4,6 +4,7 @@
  */
 package blok.controller;
 
+import blok.gui.GuiDecorator;
 import blok.gui.MainFrame;
 import blok.gui.MainHome;
 import blok.interfaces.IAbstractFactory;
@@ -28,7 +29,7 @@ public class UIController implements IUIController {
 
     @Override
     public boolean initialize() {
-        MainHome main = new MainHome();
+        GuiDecorator main = new GuiDecorator();
         main.setVisible(true);
         return false;
     }

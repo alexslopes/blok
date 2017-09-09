@@ -15,5 +15,6 @@ public class Player implements IComponent{
     
     public void desenhar(){
         System.out.println("Player");
+        return;
     }
 }

@@ -13,13 +13,9 @@ import decorator.IComponent;
  *
  * @author alex
  */
-public class decoratorescudo extends Decorator implements IPlugin{
+public class DecoratorEscudo extends Decorator implements IPlugin{
 
-    public decoratorescudo(IComponent component) {
-        super(component);
-    }
-    
-    public decoratorescudo(){
+    public DecoratorEscudo(){
         
     }
     

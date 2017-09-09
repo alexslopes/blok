@@ -14,7 +14,7 @@ import blok.interfaces.IPlugin;
 public class Decorator implements IComponent, IPlugin{
     protected IComponent component;
     
-    public Decorator(IComponent component){
+    public void setDecorator(IComponent component){
         this.component = component;
     }
     
