@@ -35,7 +35,7 @@ public class MainHome extends javax.swing.JFrame {
     public void lerPlugins(){
         this.cbxAbstractFactory.removeAllItems();
         this.cbxFactoryMethod.removeAllItems();
-        for(Object x : this.plugin.getPluginsFactory()){
+        for(Object x : this.plugin.getPlugins()){
             if(x instanceof IAbstractFactory){
                 this.cbxAbstractFactory.addItem(x.getClass().getName().split("\\.")[1]);
                 this.pluginAbstractFactory.add((IAbstractFactory) x);

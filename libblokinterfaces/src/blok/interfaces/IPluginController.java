@@ -14,8 +14,6 @@ import java.util.List;
 public interface IPluginController {
     boolean initialize();
     
-    List getPluginsFactory();
-    
-    List getPluginsDecorator();
+    List getPlugins();
     
 }

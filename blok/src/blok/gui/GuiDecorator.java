@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class GuiDecorator extends javax.swing.JFrame {
 
     private PluginController plugin;
-    private List<Decorator>  decorator = new ArrayList<>();
+    private List<Decorator>  decorators = new ArrayList<>();
 
     /**
      * Creates new form GuiDecorator
@@ -55,12 +55,18 @@ public class GuiDecorator extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbx1 = new javax.swing.JComboBox<String>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        cbx1 = new javax.swing.JComboBox<>();
         btnOk = new javax.swing.JButton();
-        cbx2 = new javax.swing.JComboBox<String>();
+        cbx2 = new javax.swing.JComboBox<>();
         btnCarregar = new javax.swing.JButton();
         btnCbx2Up = new javax.swing.JToggleButton();
         btnCbx2Down = new javax.swing.JToggleButton();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,13 +150,13 @@ public class GuiDecorator extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
-           
-        for(int i = 0; i<(decorator.size()-1); i++){
-            decorator.get(i).setDecorator(decorator.get(i+1));
+        IComponent component = new Player();
+        for(int i = 0; i < decorators.size(); i++){
+            Decorator decorator = decorators.get(i);
+            decorator.setDecorator(component);
+            component = decorator;
         }
-        decorator.get(decorator.size()-1).setDecorator(new Player());
-        decorator.get(0).desenhar();
-        
+        component.desenhar();
     }//GEN-LAST:event_btnCarregarActionPerformed
 
     private void btnCbx2DownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCbx2DownActionPerformed
@@ -200,5 +206,7 @@ public class GuiDecorator extends javax.swing.JFrame {
     private javax.swing.JButton btnOk;
     private javax.swing.JComboBox<String> cbx1;
     private javax.swing.JComboBox<String> cbx2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

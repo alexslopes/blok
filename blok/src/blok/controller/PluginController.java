@@ -30,8 +30,7 @@ import java.util.logging.Logger;
 public class PluginController implements IPluginController {
 
     private static PluginController plugin = null;
-    private static List<IPlugin> pluginsFactory = null;
-    private static List<IPlugin> pluginsDecorator = null;
+    private static List<IPlugin> pluginsPattern = null;
 
     public static PluginController getInstance() {
         if (plugin == null) {
@@ -41,8 +40,7 @@ public class PluginController implements IPluginController {
     }
 
     public boolean initialize() {
-        pluginsFactory = new ArrayList<>();
-        pluginsDecorator = new ArrayList<>();
+        pluginsPattern = new ArrayList<>();
         try {
             lerPlugin();
             return true;
@@ -70,7 +68,7 @@ public class PluginController implements IPluginController {
     }
 
     private static void lerPlugin() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
-        pluginsFactory.removeAll(pluginsFactory);
+        pluginsPattern.removeAll(pluginsPattern);
 
         File currentDir = new File("./plugins");
 
@@ -98,13 +96,13 @@ public class PluginController implements IPluginController {
             try {
                 IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).getDeclaredMethod("getInstance").invoke(null);
                 if (factory instanceof IPlugin) {
-                    pluginsFactory.add(factory);
+                    pluginsPattern.add(factory);
                 }
 
                 System.out.println(factory.toString());
             } catch (NoSuchMethodException e) {
                     IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
-                    pluginsDecorator.add(factory);
+                    pluginsPattern.add(factory);
             }
             //Class cls = Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc);
             //Constructor[] constructors = cls.getDeclaredConstructors();
@@ -115,13 +113,8 @@ public class PluginController implements IPluginController {
     }
 
     @Override
-    public List getPluginsFactory() {
-        return this.pluginsFactory;
-    }
-
-    @Override
-    public List getPluginsDecorator() {
-        return this.pluginsDecorator;
+    public List getPlugins() {
+        return this.pluginsPattern;
     }
 
 }
