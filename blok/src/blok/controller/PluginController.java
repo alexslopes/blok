@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 public class PluginController implements IPluginController {
 
     private static PluginController plugin = null;
-    private static List<IPlugin> pluginsPattern = null;
+    private static List<IPlugin> loadedPlugins = null;
 
     public static PluginController getInstance() {
         if (plugin == null) {
@@ -40,7 +40,7 @@ public class PluginController implements IPluginController {
     }
 
     public boolean initialize() {
-        pluginsPattern = new ArrayList<>();
+        loadedPlugins = new ArrayList<>();
         try {
             lerPlugin();
             return true;
@@ -68,7 +68,7 @@ public class PluginController implements IPluginController {
     }
 
     private static void lerPlugin() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
-        pluginsPattern.removeAll(pluginsPattern);
+        loadedPlugins.removeAll(loadedPlugins);
 
         File currentDir = new File("./plugins");
 
@@ -96,13 +96,13 @@ public class PluginController implements IPluginController {
             try {
                 IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).getDeclaredMethod("getInstance").invoke(null);
                 if (factory instanceof IPlugin) {
-                    pluginsPattern.add(factory);
+                    loadedPlugins.add(factory);
                 }
 
                 System.out.println(factory.toString());
             } catch (NoSuchMethodException e) {
                     IPlugin factory = (IPlugin) Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc).newInstance();
-                    pluginsPattern.add(factory);
+                    loadedPlugins.add(factory);
             }
             //Class cls = Class.forName(factoryName.toLowerCase() + "." + factoryName, true, ulc);
             //Constructor[] constructors = cls.getDeclaredConstructors();
@@ -114,7 +114,20 @@ public class PluginController implements IPluginController {
 
     @Override
     public List getPlugins() {
-        return this.pluginsPattern;
+        return this.loadedPlugins;
+    }
+
+    @Override
+    public ArrayList<IPlugin> getLoadedPluginsByType(Class clazz) {
+        ArrayList<IPlugin> pluginsByType = new ArrayList<IPlugin>();
+        for(IPlugin plugin : loadedPlugins) {
+            try {
+                if (clazz.cast(plugin) != null)
+                    pluginsByType.add(plugin);
+            }
+            catch (ClassCastException e) { }
+        }
+        return pluginsByType;
     }
 
 }

@@ -39,7 +39,7 @@ public class GuiDecorator extends javax.swing.JFrame {
     public void lerPlugins(){
         this.cbx1.removeAll();
         this.cbx2.removeAll();
-        for(Object x : this.plugin.getPluginsDecorator()){
+        for(Object x : this.plugin.getLoadedPluginsByType(Decorator.class)){
             if(x instanceof IComponent){
                 this.cbx1.addItem(x.getClass().getName().split("\\.")[1]);
                 System.out.println("Abstract" + x);
@@ -139,9 +139,9 @@ public class GuiDecorator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        this.cbx2.addItem(this.plugin.getPluginsDecorator().get(this.cbx1.getSelectedIndex()).getClass().getName().split("\\.")[1]);
+        this.cbx2.addItem(this.plugin.getLoadedPluginsByType(Decorator.class).get(this.cbx1.getSelectedIndex()).getClass().getName().split("\\.")[1]);
         try {
-            decorator.add((Decorator) this.plugin.getPluginsDecorator().get(this.cbx1.getSelectedIndex()).getClass().newInstance());
+            decorators.add((Decorator) this.plugin.getLoadedPluginsByType(Decorator.class).get(this.cbx1.getSelectedIndex()).getClass().newInstance());
         } catch (InstantiationException ex) {
             Logger.getLogger(GuiDecorator.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {

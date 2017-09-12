@@ -5,6 +5,7 @@
  */
 package blok.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,4 +17,5 @@ public interface IPluginController {
     
     List getPlugins();
     
+    public ArrayList<IPlugin> getLoadedPluginsByType(Class clazz);
 }
