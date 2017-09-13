@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,8 +24,10 @@ import javax.swing.table.DefaultTableModel;
 public class DecoratorFrame extends javax.swing.JFrame {
 
     private PluginController plugins;
-    private Map<String , Decorator >  decorators = new HashMap<>();
-    
+    private Map<String, Decorator> decorators = new HashMap<>();
+    DefaultTableModel linhaDecoratorsSelecionados;
+    DefaultTableModel linhaDecoratorsDisponiveis;
+
     /**
      * Creates new form DecoratorFrame
      */
@@ -31,18 +35,19 @@ public class DecoratorFrame extends javax.swing.JFrame {
         initComponents();
         plugins = PluginController.getInstance();
         plugins.initialize();
+        linhaDecoratorsSelecionados = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
+        linhaDecoratorsDisponiveis = (DefaultTableModel) jtbDecoratorsDisponiveis.getModel();
         lerPlugins();
     }
 
-    public void lerPlugins(){
-        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsDisponiveis.getModel();
-         for(Object x : this.plugins.getLoadedPluginsByType(Decorator.class)){
-             String text = x.getClass().getName().split("\\.")[1];
-             linha.addRow(new String[] {text});
-             decorators.put(text, (Decorator) x);
-         }
+    public void lerPlugins() {
+        for (Object x : this.plugins.getLoadedPluginsByType(Decorator.class)) {
+            String text = x.getClass().getName().split("\\.")[1];
+            linhaDecoratorsDisponiveis.addRow(new String[]{text});
+            decorators.put(text, (Decorator) x);
+        }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,7 +60,7 @@ public class DecoratorFrame extends javax.swing.JFrame {
         btnSubir = new javax.swing.JButton();
         btnDescer = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         btnCarregar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -86,10 +91,10 @@ public class DecoratorFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Ok");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
@@ -148,7 +153,7 @@ public class DecoratorFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton5))
                     .addGroup(layout.createSequentialGroup()
@@ -172,7 +177,7 @@ public class DecoratorFrame extends javax.swing.JFrame {
                         .addComponent(btnExcluir)
                         .addGap(161, 161, 161)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4)
+                            .addComponent(btnOk)
                             .addComponent(jButton5)))
                     .addComponent(btnCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,42 +189,57 @@ public class DecoratorFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
-        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
-        String texto = jtbDecoratorsDisponiveis.getValueAt(jtbDecoratorsDisponiveis.getSelectedRow(), 0).toString();
-        linha.addRow(new String[] {texto});
+        String texto = linhaDecoratorsDisponiveis.getValueAt(jtbDecoratorsDisponiveis.getSelectedRow(), 0).toString();
+        linhaDecoratorsSelecionados.addRow(new String[]{texto});
     }//GEN-LAST:event_btnCarregarActionPerformed
 
     private void btnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirActionPerformed
         //tentar implementar iterator
-        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
+        try{
         String texto = jtbDecoratorsSelecionados.getValueAt(jtbDecoratorsSelecionados.getSelectedRow(), 0).toString();
         String texto2 = jtbDecoratorsSelecionados.getValueAt(jtbDecoratorsSelecionados.getSelectedRow() - 1, 0).toString();
-        linha.setValueAt(texto2, jtbDecoratorsSelecionados.getSelectedRow(), 0);
-        linha.setValueAt(texto, jtbDecoratorsSelecionados.getSelectedRow() - 1, 0);
+        jtbDecoratorsSelecionados.setValueAt(texto2, jtbDecoratorsSelecionados.getSelectedRow(), 0);
+        jtbDecoratorsSelecionados.setValueAt(texto, jtbDecoratorsSelecionados.getSelectedRow() - 1, 0);
+        jtbDecoratorsSelecionados.setRowSelectionInterval(jtbDecoratorsSelecionados.getSelectedRow() - 1, jtbDecoratorsSelecionados.getSelectedRow() - 1);
+        }catch(ArrayIndexOutOfBoundsException e){
+            
+        }
     }//GEN-LAST:event_btnSubirActionPerformed
 
     private void btnDescerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescerActionPerformed
+        try{
         String texto = jtbDecoratorsSelecionados.getValueAt(jtbDecoratorsSelecionados.getSelectedRow(), 0).toString();
         String texto2 = jtbDecoratorsSelecionados.getValueAt(jtbDecoratorsSelecionados.getSelectedRow() + 1, 0).toString();
         jtbDecoratorsSelecionados.setValueAt(texto2, jtbDecoratorsSelecionados.getSelectedRow(), 0);
         jtbDecoratorsSelecionados.setValueAt(texto, jtbDecoratorsSelecionados.getSelectedRow() + 1, 0);
+        jtbDecoratorsSelecionados.setRowSelectionInterval(jtbDecoratorsSelecionados.getSelectedRow() + 1, jtbDecoratorsSelecionados.getSelectedRow() + 1);
+        }catch(ArrayIndexOutOfBoundsException e){
+            
+        }
     }//GEN-LAST:event_btnDescerActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
-        linha.removeRow(jtbDecoratorsSelecionados.getSelectedRow());
+        linhaDecoratorsSelecionados.removeRow(jtbDecoratorsSelecionados.getSelectedRow());
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         IComponent component = new Player();
-        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
-        for(int i = 0; i < jtbDecoratorsSelecionados.getRowCount(); i++){
-            Decorator decorator = decorators.get(linha.getValueAt(i, 0));
-            decorator.setDecorator(component);
-            component = decorator;
+
+        for (int i = 0; i < jtbDecoratorsSelecionados.getRowCount(); i++) {
+            Decorator decorator;
+            try {
+                decorator = decorators.get(linhaDecoratorsSelecionados.getValueAt(i, 0)).getClass().newInstance();
+                decorator.setDecorator(component);
+                component = decorator;
+            } catch (InstantiationException ex) {
+                Logger.getLogger(DecoratorFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(DecoratorFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
         component.desenhar();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnOkActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.dispose();
@@ -264,8 +284,8 @@ public class DecoratorFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCarregar;
     private javax.swing.JButton btnDescer;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnOk;
     private javax.swing.JButton btnSubir;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
