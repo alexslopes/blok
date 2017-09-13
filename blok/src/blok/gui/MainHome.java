@@ -10,6 +10,7 @@ import blok.controller.PluginController;
 import blok.interfaces.IPluginController;
 import blok.interfaces.IAbstractFactory;
 import blok.interfaces.IFactoryMethod;
+import blok.interfaces.IGui;
 import blok.interfaces.IUIController;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
  *
  * @author alex
  */
-public class MainHome extends javax.swing.JFrame {
+public class MainHome extends javax.swing.JFrame implements IGui{
     IPluginController plugin;
     List<IAbstractFactory> pluginAbstractFactory = new ArrayList<>();
     List<IFactoryMethod> pluginFactoryMethod = new ArrayList<>();

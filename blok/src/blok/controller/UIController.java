@@ -4,11 +4,13 @@
  */
 package blok.controller;
 
+import blok.gui.DecoratorFrame;
 import blok.gui.GuiDecorator;
 import blok.gui.MainFrame;
 import blok.gui.MainHome;
 import blok.interfaces.IAbstractFactory;
 import blok.interfaces.IFactoryMethod;
+import blok.interfaces.IGui;
 import blok.interfaces.IUIController;
 
 /**
@@ -29,7 +31,7 @@ public class UIController implements IUIController {
 
     @Override
     public boolean initialize() {
-        GuiDecorator main = new GuiDecorator();
+        IGui main = new DecoratorFrame();
         main.setVisible(true);
         return false;
     }

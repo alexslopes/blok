@@ -6,6 +6,7 @@
 package blok.gui;
 
 import blok.controller.PluginController;
+import blok.interfaces.IGui;
 import decorator.Decorator;
 import decorator.IComponent;
 import decorator.Player;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author alex
  */
-public class DecoratorFrame extends javax.swing.JFrame {
+public class DecoratorFrame extends javax.swing.JFrame implements IGui{
 
     private PluginController plugins;
     private Map<String, Decorator> decorators = new HashMap<>();
