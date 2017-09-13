@@ -32,7 +32,7 @@ public class DecoratorFrame extends javax.swing.JFrame {
     }
 
     public void lerPlugins(){
-        DefaultTableModel linha = (DefaultTableModel) jtbDecorators.getModel();
+        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsDisponiveis.getModel();
          for(Object x : this.plugins.getLoadedPluginsByType(Decorator.class)){
              linha.addRow(new String[] {x.getClass().getName().split("\\.")[1]});
              decorators.add((Decorator) x);
@@ -48,24 +48,34 @@ public class DecoratorFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSubir = new javax.swing.JButton();
+        btnDescer = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         btnCarregar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jtbDecoratorsSelecionados = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jtbDecorators = new javax.swing.JTable();
+        jtbDecoratorsDisponiveis = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Subir");
+        btnSubir.setText("Subir");
+        btnSubir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Descer");
+        btnDescer.setText("Descer");
+        btnDescer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescerActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Excluir");
+        btnExcluir.setText("Excluir");
 
         jButton4.setText("Ok");
 
@@ -78,7 +88,7 @@ public class DecoratorFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jtbDecoratorsSelecionados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -94,9 +104,9 @@ public class DecoratorFrame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable3);
+        jScrollPane2.setViewportView(jtbDecoratorsSelecionados);
 
-        jtbDecorators.setModel(new javax.swing.table.DefaultTableModel(
+        jtbDecoratorsDisponiveis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -104,7 +114,7 @@ public class DecoratorFrame extends javax.swing.JFrame {
                 "Decorators Disponíveis"
             }
         ));
-        jScrollPane3.setViewportView(jtbDecorators);
+        jScrollPane3.setViewportView(jtbDecoratorsDisponiveis);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,9 +135,9 @@ public class DecoratorFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDescer)
+                            .addComponent(btnSubir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -136,11 +146,11 @@ public class DecoratorFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnSubir)
                         .addGap(12, 12, 12)
-                        .addComponent(jButton2)
+                        .addComponent(btnDescer)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(btnExcluir)
                         .addGap(161, 161, 161)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton4)
@@ -148,15 +158,33 @@ public class DecoratorFrame extends javax.swing.JFrame {
                     .addComponent(btnCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
-        
+        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
+        String texto = jtbDecoratorsDisponiveis.getValueAt(jtbDecoratorsDisponiveis.getSelectedRow(), 0).toString();
+        linha.addRow(new String[] {texto});
     }//GEN-LAST:event_btnCarregarActionPerformed
+
+    private void btnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirActionPerformed
+        //tentar implementar iterator
+        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
+        String texto = jtbDecoratorsSelecionados.getValueAt(jtbDecoratorsSelecionados.getSelectedRow(), 0).toString();
+        String texto2 = jtbDecoratorsSelecionados.getValueAt(jtbDecoratorsSelecionados.getSelectedRow() - 1, 0).toString();
+        linha.setValueAt(texto2, jtbDecoratorsSelecionados.getSelectedRow(), 0);
+        linha.setValueAt(texto, jtbDecoratorsSelecionados.getSelectedRow() - 1, 0);
+    }//GEN-LAST:event_btnSubirActionPerformed
+
+    private void btnDescerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescerActionPerformed
+        String texto = jtbDecoratorsSelecionados.getValueAt(jtbDecoratorsSelecionados.getSelectedRow(), 0).toString();
+        String texto2 = jtbDecoratorsSelecionados.getValueAt(jtbDecoratorsSelecionados.getSelectedRow() + 1, 0).toString();
+        jtbDecoratorsSelecionados.setValueAt(texto2, jtbDecoratorsSelecionados.getSelectedRow(), 0);
+        jtbDecoratorsSelecionados.setValueAt(texto, jtbDecoratorsSelecionados.getSelectedRow() + 1, 0);
+    }//GEN-LAST:event_btnDescerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,14 +223,14 @@ public class DecoratorFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCarregar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnDescer;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSubir;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jtbDecorators;
+    private javax.swing.JTable jtbDecoratorsDisponiveis;
+    private javax.swing.JTable jtbDecoratorsSelecionados;
     // End of variables declaration//GEN-END:variables
 }
