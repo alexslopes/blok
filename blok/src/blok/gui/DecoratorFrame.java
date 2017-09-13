@@ -8,8 +8,11 @@ package blok.gui;
 import blok.controller.PluginController;
 import decorator.Decorator;
 import decorator.IComponent;
+import decorator.Player;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class DecoratorFrame extends javax.swing.JFrame {
 
     private PluginController plugins;
-    private List<Decorator>  decorators = new ArrayList<>();
+    private Map<String , Decorator >  decorators = new HashMap<>();
     
     /**
      * Creates new form DecoratorFrame
@@ -34,8 +37,9 @@ public class DecoratorFrame extends javax.swing.JFrame {
     public void lerPlugins(){
         DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsDisponiveis.getModel();
          for(Object x : this.plugins.getLoadedPluginsByType(Decorator.class)){
-             linha.addRow(new String[] {x.getClass().getName().split("\\.")[1]});
-             decorators.add((Decorator) x);
+             String text = x.getClass().getName().split("\\.")[1];
+             linha.addRow(new String[] {text});
+             decorators.put(text, (Decorator) x);
          }
     }
     
@@ -76,10 +80,25 @@ public class DecoratorFrame extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Ok");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Cancelar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         btnCarregar.setText(">");
         btnCarregar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,6 +204,26 @@ public class DecoratorFrame extends javax.swing.JFrame {
         jtbDecoratorsSelecionados.setValueAt(texto2, jtbDecoratorsSelecionados.getSelectedRow(), 0);
         jtbDecoratorsSelecionados.setValueAt(texto, jtbDecoratorsSelecionados.getSelectedRow() + 1, 0);
     }//GEN-LAST:event_btnDescerActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
+        linha.removeRow(jtbDecoratorsSelecionados.getSelectedRow());
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        IComponent component = new Player();
+        DefaultTableModel linha = (DefaultTableModel) jtbDecoratorsSelecionados.getModel();
+        for(int i = 0; i < jtbDecoratorsSelecionados.getRowCount(); i++){
+            Decorator decorator = decorators.get(linha.getValueAt(i, 0));
+            decorator.setDecorator(component);
+            component = decorator;
+        }
+        component.desenhar();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
